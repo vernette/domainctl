@@ -64,6 +64,11 @@ validate_command() {
   fi
 }
 
+restart_services() {
+  service dnsmasq restart
+  service firewall restart
+}
+
 main() {
   if [ "$#" -lt 1 ]; then
     print_usage
@@ -80,11 +85,13 @@ main() {
         printf "Domain '%s' already exists in ipset.\n" "$DOMAIN"
       else
         add_domain_to_ipset "$DOMAIN"
+        restart_services
       fi
       ;;
     remove)
       if check_domain_in_ipset "$DOMAIN"; then
         remove_domain_from_ipset "$DOMAIN"
+        restart_services
       else
         printf "Domain '%s' not found in ipset.\n" "$DOMAIN"
       fi
