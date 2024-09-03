@@ -78,9 +78,9 @@ main() {
     exit 1
   fi
 
+  validate_command "$COMMAND" "$DOMAIN"
   verify_ipset_config
   verify_ipset_name
-  validate_command "$COMMAND" "$DOMAIN"
 
   case "$COMMAND" in
     add)
