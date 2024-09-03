@@ -59,6 +59,9 @@ chmod +x /root/domainctl.sh
 # Удаление домена. Если домен не добавлен, то будет выведено сообщение об ошибке.
 ./domainctl.sh remove google.com
 
+# Перезапуск dnsmasq и firewall.
+./domainctl.sh restart
+
 # Получение списка добавленных доменов.
 ./domainctl.sh list
 ```
