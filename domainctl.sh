@@ -65,8 +65,10 @@ validate_command() {
 }
 
 restart_services() {
-  service dnsmasq restart
-  service firewall restart
+  printf "Restarting dnsmasq...\n"
+  service dnsmasq restart >/dev/null
+  printf "Restarting firewall...\n"
+  service firewall restart >/dev/null
 }
 
 main() {
