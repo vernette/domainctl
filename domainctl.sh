@@ -1,6 +1,7 @@
 #!/bin/sh
 
 IPSET_INDEX=-1
+IPSET_NAME="vpn_domains"
 COMMAND=$1
 DOMAIN=$2
 
@@ -24,7 +25,7 @@ verify_ipset_config() {
 verify_ipset_name() {
   if ! uci -q get dhcp.@ipset[$IPSET_INDEX].name >/dev/null; then
     printf "No ipset name set. Adding...\n"
-    uci set dhcp.@ipset[$IPSET_INDEX].name='vpn_domains'
+    uci set dhcp.@ipset[$IPSET_INDEX].name=$IPSET_NAME
     uci commit dhcp
   fi
 }
@@ -87,13 +88,11 @@ main() {
         printf "Domain '%s' already exists in ipset.\n" "$DOMAIN"
       else
         add_domain_to_ipset "$DOMAIN"
-        restart_services
       fi
       ;;
     remove)
       if check_domain_in_ipset "$DOMAIN"; then
         remove_domain_from_ipset "$DOMAIN"
-        restart_services
       else
         printf "Domain '%s' not found in ipset.\n" "$DOMAIN"
       fi
@@ -106,6 +105,10 @@ main() {
       print_usage
       ;;
   esac
+
+  if [ "$COMMAND" = "add" ] || [ "$COMMAND" = "remove" ]; then
+    restart_services
+  fi
 }
 
 main "$@"
