@@ -51,16 +51,16 @@ chmod +x /root/domainctl.sh
 
 ```sh
 # Вывод примера использования и доступных команд.
-./domainsctl.sh
+./domainctl.sh
 
 # Добавление домена. Если домен уже добавлен, то будет выведено сообщение об ошибке.
-./domainsctl.sh add google.com
+./domainctl.sh add google.com
 
 # Удаление домена. Если домен не добавлен, то будет выведено сообщение об ошибке.
-./domainsctl.sh remove google.com
+./domainctl.sh remove google.com
 
 # Получение списка добавленных доменов.
-./domainsctl.sh list
+./domainctl.sh list
 ```
 
 После добавления или удаления домена перезапускаются сервисы `dnsmasq` и `firewall`.
