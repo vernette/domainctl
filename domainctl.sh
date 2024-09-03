@@ -11,6 +11,7 @@ print_usage() {
   printf "  add <domain>     - Add a domain to the ipset.\n"
   printf "  remove <domain>  - Remove a domain from the ipset.\n"
   printf "  list             - List all domains in the ipset.\n"
+  printf "  restart          - Restart dnsmasq and firewall.\n"
   exit 1
 }
 
@@ -100,15 +101,14 @@ main() {
     list)
       list_domains
       ;;
+    restart)
+      restart_services
+      ;;
     *)
       printf "Unknown command: %s\n\n" "$COMMAND"
       print_usage
       ;;
   esac
-
-  if [ "$COMMAND" = "add" ] || [ "$COMMAND" = "remove" ]; then
-    restart_services
-  fi
 }
 
 main "$@"
