@@ -26,7 +26,7 @@ verify_ipset_config() {
 verify_ipset_name() {
   if ! uci -q get dhcp.@ipset[$IPSET_INDEX].name >/dev/null; then
     printf "No ipset name set. Adding...\n"
-    uci set dhcp.@ipset[$IPSET_INDEX].name=$IPSET_NAME
+    uci add_list dhcp.@ipset[$IPSET_INDEX].name=$IPSET_NAME
     uci commit dhcp
   fi
 }
