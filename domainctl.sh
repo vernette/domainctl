@@ -10,6 +10,8 @@ print_usage() {
   printf "Commands:\n"
   printf "  add <domain>     - Add a domain to the ipset.\n"
   printf "  remove <domain>  - Remove a domain from the ipset.\n"
+  printf "  file <file>      - Add domains from a file to the ipset.\n"
+  printf "  url <url>        - Add domains from a URL to the ipset.\n"
   printf "  list             - List all domains in the ipset.\n"
   printf "  restart          - Restart dnsmasq and firewall.\n"
   exit 1
@@ -59,6 +61,34 @@ list_domains() {
   fi
 }
 
+add_domains_from_file() {
+  if [ -f "$1" ]; then
+    while IFS= read -r line; do
+      if [ -n "$line" ]; then
+        if check_domain_in_ipset "$line"; then
+          printf "Domain '%s' already exists in ipset.\n" "$line"
+        else
+          add_domain_to_ipset "$line"
+        fi
+      fi
+    done <"$1"
+  else
+    printf "File '%s' not found.\n" "$1"
+  fi
+}
+
+add_domains_from_url() {
+  TEMP_FILE=$(mktemp)
+  curl -s "$1" -o "$TEMP_FILE"
+  if [ $? -ne 0 ]; then
+    printf "Failed to download URL.\n"
+    rm "$TEMP_FILE"
+    exit 1
+  fi
+  add_domains_from_file "$TEMP_FILE"
+  rm "$TEMP_FILE"
+}
+
 validate_command() {
   if { [ "$COMMAND" = "add" ] || [ "$COMMAND" = "remove" ]; } && [ -z "$DOMAIN" ]; then
     printf "Error: Domain is required for '%s' command.\n\n" "$COMMAND"
@@ -90,6 +120,12 @@ main() {
       else
         add_domain_to_ipset "$DOMAIN"
       fi
+      ;;
+    file)
+      add_domains_from_file "$DOMAIN"
+      ;;
+    url)
+      add_domains_from_url "$DOMAIN"
       ;;
     remove)
       if check_domain_in_ipset "$DOMAIN"; then
