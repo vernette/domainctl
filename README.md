@@ -79,10 +79,10 @@ yandex.ru
 
 Примеры ссылок:
 
-| Сайт                       | Ссылка                                                                                                                             |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| https://iplist.opencck.org | [https://iplist.opencck.org/?format=text&data=domains&wildcard=1](https://iplist.opencck.org/?format=text&data=domains&wildcard=1) |
-| Github                     | https://raw.githubusercontent.com/JamieFarrelly/Popular-Site-Subdomains/master/Instagram.com.txt                                   |
+| Сайт                                             | Ссылка                                                                                                                             |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| [iplist.opencck.org](https://iplist.opencck.org) | [https://iplist.opencck.org/?format=text&data=domains&wildcard=1](https://iplist.opencck.org/?format=text&data=domains&wildcard=1) |
+| GitHub                                           | https://raw.githubusercontent.com/JamieFarrelly/Popular-Site-Subdomains/master/Instagram.com.txt                                   |
 
 ### Удаление домена
 
