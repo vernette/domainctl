@@ -77,9 +77,12 @@ yandex.ru
 ./domainctl.sh url 'https://example.com'
 ```
 
-Пример ссылки с сервиса https://iplist.opencck.org/:
+Примеры ссылок:
 
-https://iplist.opencck.org/?format=text&data=domains&wildcard=1
+| Сайт                       | Ссылка                                                                                                                             |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| https://iplist.opencck.org | [https://iplist.opencck.org/?format=text&data=domains&wildcard=1](https://iplist.opencck.org/?format=text&data=domains&wildcard=1) |
+| Github                     | https://raw.githubusercontent.com/JamieFarrelly/Popular-Site-Subdomains/master/Instagram.com.txt                                   |
 
 ### Удаление домена
 
