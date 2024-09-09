@@ -79,7 +79,7 @@ add_domains_from_file() {
 
 add_domains_from_url() {
   TEMP_FILE=$(mktemp)
-  curl -s "$1" -o "$TEMP_FILE"
+  wget -q "$1" -O "$TEMP_FILE"
   if [ $? -ne 0 ]; then
     printf "Failed to download URL.\n"
     rm "$TEMP_FILE"
