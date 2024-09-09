@@ -65,7 +65,7 @@ youtube.com
 yandex.ru
 ```
 
-#### Добавление списка доменов по ссылке
+#### Список доменов по ссылке
 
 ```sh
 ./domainctl.sh url 'https://example.com'
