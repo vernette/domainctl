@@ -13,14 +13,12 @@
 
 ## Подготовка
 
-Нужен `curl` или `wget` для скачивания скрипта.
+Для работы и скачивания скрипта требуется встроенный в OpenWrt `wget` (uclient-fetch).
 
-Установите что-то одно:
+Если по какой-то причине он отсутствует, установите его:
 
 ```sh
-opkg update
-opkg install curl
-opkg install wget
+opkg install uclient-fetch
 ```
 
 ## Установка
@@ -34,10 +32,6 @@ cp /etc/config/dhcp /etc/config/dhcp.bak
 Скачайте скрипт в нужную директорию, например, `/root` или `/tmp`. В случае с `/tmp` скрипт будет удалён после перезагрузки роутера:
 
 ```sh
-# curl
-curl https://raw.githubusercontent.com/vernette/domainctl/master/domainctl.sh -o /root/domainctl.sh
-
-# wget
 wget https://raw.githubusercontent.com/vernette/domainctl/master/domainctl.sh -O /root/domainctl.sh
 ```
 
@@ -105,6 +99,5 @@ yandex.ru
 ## TODO
 
 - [ ] Добавить обработку ссылок, чтобы убрать домены третьего уровня и выше
-- [ ] Добавить проверку, установлен ли `curl` или `wget`
 - [x] Добавить возможность загрузки доменов из файла
 - [x] Добавить возможность загрузки доменов по ссылке
