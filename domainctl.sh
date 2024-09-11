@@ -13,6 +13,7 @@ print_usage() {
   printf "  file <file>      - Add domains from a file to the ipset.\n"
   printf "  url <url>        - Add domains from a URL to the ipset.\n"
   printf "  list             - List all domains in the ipset.\n"
+  printf "  export <file>    - Export domains in the ipset to a file.\n"
   printf "  restart          - Restart dnsmasq and firewall.\n"
   exit 1
 }
@@ -136,6 +137,9 @@ main() {
       ;;
     list)
       list_domains
+      ;;
+    export)
+      list_domains >"$DOMAIN"
       ;;
     restart)
       restart_services
