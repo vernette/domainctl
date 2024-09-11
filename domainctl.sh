@@ -139,7 +139,16 @@ main() {
       list_domains
       ;;
     export)
-      list_domains >"$DOMAIN"
+      domains=$(list_domains)
+      if [[ "$domains" = "No domains found in ipset." ]]; then
+        printf "No domains found in ipset. Nothing to export.\n"
+      elif [ -z "$DOMAIN" ]; then
+        printf "No file specified.\n"
+        exit 1
+      else
+        list_domains >"$DOMAIN"
+        printf "Domains exported to '%s'\n" "$DOMAIN"
+      fi
       ;;
     restart)
       restart_services
