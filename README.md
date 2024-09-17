@@ -32,7 +32,7 @@ cp /etc/config/dhcp /etc/config/dhcp.bak
 Скачайте скрипт в нужную директорию, например, `/root` или `/tmp`. В случае с `/tmp` скрипт будет удалён после перезагрузки роутера:
 
 ```sh
-wget https://raw.githubusercontent.com/vernette/domainctl/master/domainctl.sh -O /root/domainctl.sh
+wget -4 https://raw.githubusercontent.com/vernette/domainctl/master/domainctl.sh -O /root/domainctl.sh
 ```
 
 Сделайте его исполняемым:
