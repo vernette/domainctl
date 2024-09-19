@@ -87,7 +87,7 @@ yandex.ru
 ./domainctl.sh remove google.com
 ```
 
-### Перезапуск dnsmasq и firewall
+### Перезапуск dnsmasq и очистка таблицы vpn_domains
 
 ```sh
 ./domainctl.sh restart
