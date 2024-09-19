@@ -14,7 +14,7 @@ print_usage() {
   printf "  url <url>        - Add domains from a URL to the ipset.\n"
   printf "  list             - List all domains in the ipset.\n"
   printf "  export <file>    - Export domains in the ipset to a file.\n"
-  printf "  restart          - Restart dnsmasq and firewall.\n"
+  printf "  restart          - Restart dnsmasq and clear the vpn_domains table.\n"
   exit 1
 }
 
@@ -100,8 +100,8 @@ validate_command() {
 restart_services() {
   printf "Restarting dnsmasq...\n"
   service dnsmasq restart >/dev/null
-  printf "Restarting firewall...\n"
-  service firewall restart >/dev/null
+  printf "Clearing the vpn_domains table...\n"
+  nft flush set inet fw4 vpn_domains >/dev/null
 }
 
 main() {
