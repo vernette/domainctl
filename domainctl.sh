@@ -6,7 +6,7 @@ COMMAND=$1
 ARGUMENT=$2
 
 print_usage() {
-  printf "Usage: $0 <command> [domain]\n\n"
+  printf "Usage: $0 <command> [argument]\n\n"
   printf "Commands:\n"
   printf "  add <domain>     - Add a domain to the ipset.\n"
   printf "  remove <domain>  - Remove a domain from the ipset.\n"
