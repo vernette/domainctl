@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 IPSET_INDEX=-1
 IPSET_NAME="vpn_domains"
