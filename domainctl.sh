@@ -3,7 +3,7 @@
 IPSET_INDEX=-1
 IPSET_NAME="vpn_domains"
 COMMAND=$1
-DOMAIN=$2
+ARGUMENT=$2
 
 print_usage() {
   printf "Usage: $0 <command> [domain]\n\n"
@@ -91,7 +91,7 @@ add_domains_from_url() {
 }
 
 validate_command() {
-  if { [ "$COMMAND" = "add" ] || [ "$COMMAND" = "remove" ]; } && [ -z "$DOMAIN" ]; then
+  if { [ "$COMMAND" = "add" ] || [ "$COMMAND" = "remove" ]; } && [ -z "$ARGUMENT" ]; then
     printf "Error: Domain is required for '%s' command.\n\n" "$COMMAND"
     print_usage
   fi
@@ -110,29 +110,29 @@ main() {
     exit 1
   fi
 
-  validate_command "$COMMAND" "$DOMAIN"
+  validate_command "$COMMAND" "$ARGUMENT"
   verify_ipset_config
   verify_ipset_name
 
   case "$COMMAND" in
     add)
-      if check_domain_in_ipset "$DOMAIN"; then
-        printf "Domain '%s' already exists in ipset.\n" "$DOMAIN"
+      if check_domain_in_ipset "$ARGUMENT"; then
+        printf "Domain '%s' already exists in ipset.\n" "$ARGUMENT"
       else
-        add_domain_to_ipset "$DOMAIN"
+        add_domain_to_ipset "$ARGUMENT"
       fi
       ;;
     file)
-      add_domains_from_file "$DOMAIN"
+      add_domains_from_file "$ARGUMENT"
       ;;
     url)
-      add_domains_from_url "$DOMAIN"
+      add_domains_from_url "$ARGUMENT"
       ;;
     remove)
-      if check_domain_in_ipset "$DOMAIN"; then
-        remove_domain_from_ipset "$DOMAIN"
+      if check_domain_in_ipset "$ARGUMENT"; then
+        remove_domain_from_ipset "$ARGUMENT"
       else
-        printf "Domain '%s' not found in ipset.\n" "$DOMAIN"
+        printf "Domain '%s' not found in ipset.\n" "$ARGUMENT"
       fi
       ;;
     list)
@@ -142,12 +142,12 @@ main() {
       domains=$(list_domains)
       if [[ "$domains" = "No domains found in ipset." ]]; then
         printf "No domains found in ipset. Nothing to export.\n"
-      elif [ -z "$DOMAIN" ]; then
+      elif [ -z "$ARGUMENT" ]; then
         printf "No file specified.\n"
         exit 1
       else
-        list_domains >"$DOMAIN"
-        printf "Domains exported to '%s'\n" "$DOMAIN"
+        list_domains >"$ARGUMENT"
+        printf "Domains exported to '%s'\n" "$ARGUMENT"
       fi
       ;;
     restart)
