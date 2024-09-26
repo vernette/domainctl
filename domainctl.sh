@@ -15,7 +15,7 @@ print_usage() {
   printf "  list             - List all domains in the ipset.\n"
   printf "  export <file>    - Export domains in the ipset to a file.\n"
   printf "  restart          - Restart dnsmasq and clear the vpn_domains table.\n"
-  exit 1
+  exit 0
 }
 
 verify_ipset_config() {
