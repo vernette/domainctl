@@ -6,7 +6,7 @@ COMMAND=$1
 ARGUMENT=$2
 
 print_usage() {
-  printf "Usage: $0 <command> [argument]\n\n"
+  printf "Usage: %s <command> [argument]\n\n" "$0"
   printf "Commands:\n"
   printf "  add <domain>     - Add a domain to the ipset.\n"
   printf "  remove <domain>  - Remove a domain from the ipset.\n"
@@ -58,7 +58,9 @@ list_domains() {
   if [ -z "$DOMAINS" ]; then
     printf "No domains found in ipset.\n"
   else
-    printf "%s\n" $DOMAINS
+    for domain in $DOMAINS; do
+      printf "%s\n" "$domain"
+    done
   fi
 }
 
@@ -75,16 +77,17 @@ add_domains_from_file() {
     done <"$1"
   else
     printf "File '%s' not found.\n" "$1"
+    exit 2
   fi
 }
 
 add_domains_from_url() {
   TEMP_FILE=$(mktemp)
-  wget -q "$1" -O "$TEMP_FILE"
-  if [ $? -ne 0 ]; then
+
+  if ! wget -q "$1" -O "$TEMP_FILE"; then
     printf "Failed to download URL.\n"
     rm "$TEMP_FILE"
-    exit 1
+    exit 2
   fi
   add_domains_from_file "$TEMP_FILE"
   rm "$TEMP_FILE"
@@ -107,7 +110,6 @@ restart_services() {
 main() {
   if [ "$#" -lt 1 ]; then
     print_usage
-    exit 1
   fi
 
   validate_command "$COMMAND" "$ARGUMENT"
@@ -140,13 +142,13 @@ main() {
       ;;
     export)
       domains=$(list_domains)
-      if [[ "$domains" = "No domains found in ipset." ]]; then
+      if [ "$domains" = "No domains found in ipset." ]; then
         printf "No domains found in ipset. Nothing to export.\n"
       elif [ -z "$ARGUMENT" ]; then
         printf "No file specified.\n"
         exit 1
       else
-        list_domains >"$ARGUMENT"
+        printf "%s\n" "$domains" >"$ARGUMENT"
         printf "Domains exported to '%s'\n" "$ARGUMENT"
       fi
       ;;
